@@ -2,7 +2,7 @@
 # With ThePirateBay.
 # Written by @Netuoso
 
-require './constants'
+require_relative 'constants'
 
 class ApiBase
 

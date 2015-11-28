@@ -68,7 +68,6 @@ class Constants
       other: '699'
     }
   }
-
   ORDERING = {
     name: {
       des: '1',

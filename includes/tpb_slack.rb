@@ -1,6 +1,6 @@
 # Written by @Netuoso
 
-class TpbSlackWrapper
+class TpbSlack
   def initialize
     @options = {page: '0', ordering: Constants::ORDERING.default, type: Constants::CATEGORIES.default}
     @base_url = Constants::BASE_URL
@@ -14,16 +14,16 @@ class TpbSlackWrapper
       top(opts)
     when 'search'
       search(query, opts)
-    when 'download'
-      download(ARGV[1])
     when 'info'
       info
+    when 'help'
+      help
     end
   end
 
   def recent
     results = {}
-    url = URI::encode(@base_url + '/recent')
+    url = URI.encode(@base_url + '/recent')
     page = Nokogiri::HTML(RestClient.get(url))
     torrent_rows = page.css('tr')[1...-1]
     torrent_rows.each_with_index do |result, index|
@@ -39,11 +39,11 @@ class TpbSlackWrapper
   def top(opts=[])
     results = {}
     opts.each do |opt|
-      @options[:page] = opt[1..-1].delete("\s") if opt.first == 'p'
-      @options[:ordering] = opt[1..-1].delete("\s") if opt.first == 'o'
-      @options[:type] = opt[1..-1].delete("\s") if opt.first == 't'
-    end if opts.present?
-    url = URI::encode(@base_url + "/top/#{@options[:type]}")
+      @options[:page] = opt[1..-1].delete("\s") if opt[0] == 'p'
+      @options[:ordering] = opt[1..-1].delete("\s") if opt[0] == 'o'
+      @options[:type] = opt[1..-1].delete("\s") if opt[0] == 't'
+    end if !opts.empty?
+    url = URI.encode(@base_url + "/top/#{@options[:type]}")
     page = Nokogiri::HTML(RestClient.get(url))
     torrent_rows = page.css('tr')[1...-1]
     torrent_rows.each_with_index do |result, index|
@@ -59,11 +59,11 @@ class TpbSlackWrapper
   def search(query, opts=[])
     results = {}
     opts.each do |opt|
-      @options[:page] = opt[1..-1].delete("\s") if opt.first == 'p'
-      @options[:ordering] = opt[1..-1].delete("\s") if opt.first == 'o'
-      @options[:type] = opt[1..-1].delete("\s") if opt.first == 't'
-    end if opts.present?
-    url = URI::encode(@base_url + "/search/#{query}/#{@options[:page]}/#{@options[:ordering]}/#{@options[:type]}")
+      @options[:page] = opt[1..-1].delete("\s") if opt[0] == 'p'
+      @options[:ordering] = opt[1..-1].delete("\s") if opt[0] == 'o'
+      @options[:type] = opt[1..-1].delete("\s") if opt[0] == 't'
+    end if !opts.empty?
+    url = URI.encode(@base_url + "/search/#{query}/#{@options[:page]}/#{@options[:ordering]}/#{@options[:type]}")
     page = Nokogiri::HTML(RestClient.get(url))
     torrent_rows = page.css('tr')[1...-1]
     torrent_rows.each_with_index do |result, index|
@@ -76,12 +76,11 @@ class TpbSlackWrapper
     results
   end
 
-  def download(torrent_id)
-    # TODO: Enable downloading?
-    p "Not yet implemented"
+  def info
+    "Ruby-based Slack Bot for interacting with <https://thepiratebay.la>, written by @Netuoso"
   end
 
-  def info
-    puts "ThePirateBay Unofficial Ruby API written by @Netuoso"
+  def help
+    {categories: Constants::CATEGORIES, ordering: Constants::ORDERING}
   end
 end

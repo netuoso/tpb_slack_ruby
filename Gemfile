@@ -1,8 +1,14 @@
 source 'http://rubygems.org'
 
+ruby '2.2.2'
+
+gem 'sinatra'
+gem 'dotenv'
+
 gem 'nokogiri'
-gem 'restclient'
-gem 'http-cookie'
-gem 'torrent-ruby'
-gem 'slack-ruby-bot'
-gem 'pry'
+gem 'rest-client'
+gem 'pastie-api'
+
+group :development do
+  gem 'pry'
+end

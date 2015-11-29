@@ -1,6 +1,6 @@
 ### Ruby-based Slack Bot for Interacting with ThePirateBay Torrent Search Engine
 
-### Before getting started
+##### Before getting started (Recommended)
 
 1. Create an account on [Heroku](http://www.heroku.com)
 2. Install the heroku toolbelt
@@ -11,7 +11,7 @@
  - `heroku apps`
  - Then follow the login prompts
 
-### Getting started
+##### Getting started
 
 1. Clone this repo
 2. `cd tpb_slack_ruby`
@@ -23,12 +23,12 @@
 7. Use your trigger word, followed by `help` or `info` to verify the bot is running
  - You can also visit `https://{{YOUR_HEROKU_APP_NAME}}.herokuapp.com/status` and check for `server online`
 
-### Defaults
+##### Defaults
 
 1. Ordering: default ordering is by seeders and is descending.
  - Specify ordering with -o ORDERING_VALUE (See `help` for these numerical values)
 
-### Commands and options
+##### Commands and options
 
 1. `recent` (ordered by seeders)
 2. `top -t TYPE [-o ORDERING]`
@@ -36,7 +36,7 @@
 4. `info`
 5. `help`
 
-### Examples
+##### Examples
 
 1. `tpb: recent`
  - List the 30 most recent torrents
@@ -46,13 +46,13 @@
  - List the torrents relating to 'fight club' of type 'Video (HD Movies)'.
  - (If no page is specified, returns first page. Pages start at 0.)
 
-### Further information
+##### Further information
 
 - All used constants can be found in `includes/constants.rb`
 - If you wish to contribute, see contributions section
 - Visit http://www.techflavor.com for more information about my work
 
-### Contributions
+##### Contributions
 
 This project is open source and distributed under the MIT License.
 Thus, contributions are welcome. Feel free to clone this repository to submit issues and pull requests.
